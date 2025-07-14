@@ -1,10 +1,14 @@
 from datetime import datetime, timedelta
-from jose import JWTError, jwt
+from jose import JWTError, jwt, ExpiredSignatureError
 from fastapi import Depends, HTTPException, status
+from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer
 
 from dotenv import load_dotenv
 import os
+
+from app.models.user import User
+from app.database import get_db
 
 load_dotenv()
 
@@ -21,12 +25,22 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")
         if user_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-        return user_id
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        user = db.query(User).filter(User.id == user_id).first()
+        if user is None:
+            raise HTTPException(status_code=401, detail="User not found")
+
+        return user
+
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+        raise HTTPException(status_code=401, detail="Invalid token")

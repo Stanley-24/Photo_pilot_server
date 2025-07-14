@@ -1,6 +1,6 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, Integer, JSON
 from sqlalchemy.dialects.sqlite import BLOB
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship  # Added relationship import
 from uuid import uuid4
 from datetime import datetime
 
@@ -13,3 +13,12 @@ class Photo(Base):
     user_id = Column(String, nullable=False)
     image_url = Column(String, nullable=False)  # ✅ This must exist
     timestamp = Column(DateTime, default=datetime.utcnow)
+    view_count = Column(Integer, default=0)
+    total_view_time = Column(Integer, default=0)
+    tags = Column(JSON)  
+    image_tags = relationship("ImageTag", back_populates="photo")
+    reviews = relationship("Review", back_populates="photo", cascade="all, delete")
+
+
+
+from app.models.image_tag import ImageTag
