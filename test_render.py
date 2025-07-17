@@ -1,1 +1,0 @@
-print("==== Render test: Python is running and logging works! ====", flush=True) 
