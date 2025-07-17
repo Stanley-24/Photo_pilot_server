@@ -9,9 +9,9 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL environment variable not set!")
 
-print("==== About to create SQLAlchemy engine ====")
+print("==== About to create SQLAlchemy engine ====", flush=True)
 engine = create_engine(DATABASE_URL)
-print("==== SQLAlchemy engine created ====")
+print("==== SQLAlchemy engine created ====", flush=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
