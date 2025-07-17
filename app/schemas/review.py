@@ -20,3 +20,21 @@ class ReviewRead(BaseModel):
         from_attributes = True  # replaces orm_mode
 
 
+class HomepageReviewCreate(BaseModel):
+    full_name: str
+    review: str
+    star: int
+    avatar_url: Optional[str] = None
+
+class HomepageReviewRead(BaseModel):
+    id: str
+    full_name: str
+    review: str
+    star: int
+    avatar_url: Optional[str]
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+

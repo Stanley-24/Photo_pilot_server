@@ -39,7 +39,14 @@ app.add_middleware(
 # ✅ CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://photo-pilot.vercel.app/"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://photo-pilot.vercel.app",
+        "https://photo-pilot-client-ig515zpa6-stanley-owarietas-projects.vercel.app",
+        "https://photo-pilot-client-df1nhl4pu-stanley-owarietas-projects.vercel.app",
+        "https://photo-pilot-client-girkkngh1-stanley-owarietas-projects.vercel.app",
+        "https://photo-pilot-client-cyrruedr8-stanley-owarietas-projects.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
