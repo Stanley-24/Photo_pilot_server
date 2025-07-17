@@ -9,9 +9,9 @@ from app.models.base import Base
 class Photo(Base):
     __tablename__ = "photos"
 
-    id = Column(String, primary_key=True, default=lambda: str(uuid4()))
-    user_id = Column(String, nullable=False)
-    image_url = Column(String, nullable=False)  # ✅ This must exist
+    id = Column(String(64), primary_key=True, default=lambda: str(uuid4()))
+    user_id = Column(String(64), nullable=False)
+    image_url = Column(String(255), nullable=False)  # ✅ This must exist
     timestamp = Column(DateTime, default=datetime.utcnow)
     view_count = Column(Integer, default=0)
     total_view_time = Column(Integer, default=0)

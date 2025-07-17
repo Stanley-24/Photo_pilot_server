@@ -8,11 +8,11 @@ import uuid
 class Review(Base):
     __tablename__ = "reviews"
 
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    comment = Column(String, nullable=False)
+    id = Column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    comment = Column(String(255), nullable=False)
     rating = Column(Integer, nullable=True)
-    photo_id = Column(String, ForeignKey("photos.id"), nullable=False)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    photo_id = Column(String(64), ForeignKey("photos.id"), nullable=False)
+    user_id = Column(String(64), ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="reviews")
