@@ -27,8 +27,17 @@ from app.routes import background_replace, tag
 from app.routes.background_replacer import router as background_replace_router
 
 print("==== FastAPI app is starting up ====", flush=True)
-Base.metadata.create_all(bind=engine)
-print("==== FastAPI app instance created ====", flush=True)
+from app.models.base import Base
+from app.models.user import User
+from app.models.photo import Photo
+from app.database import engine
+print("==== Before Base.metadata.create_all ====", flush=True)
+try:
+    Base.metadata.create_all(bind=engine)
+    print("==== After Base.metadata.create_all ====", flush=True)
+except Exception as e:
+    print(f"==== Exception in create_all: {e} ====", flush=True)
+    import sys; sys.exit(1)
 
 app = FastAPI()
 
