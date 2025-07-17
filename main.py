@@ -26,7 +26,9 @@ FLW_SECRET_KEY = os.getenv("FLW_SECRET_KEY")
 from app.routes import background_replace, tag
 from app.routes.background_replacer import router as background_replace_router
 
+print("==== FastAPI app is starting up ====")
 Base.metadata.create_all(bind=engine)
+print("==== FastAPI app instance created ====")
 
 app = FastAPI()
 
