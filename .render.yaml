@@ -1,42 +1,29 @@
 services:
   - type: web
-    name: photo-pilot-backend
-    env: python
-    plan: free  # or 'starter' or 'pro' depending on your Render plan
+    name: photopilot-api
+    runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
-    autoDeploy: true
-
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: SECRET_KEY
-        value: h2
-
+        value: "h2"
       - key: Unsplash
-        value: 2yOyrtVwoS8OCIeuZwgHEE2MWjkUKSXmZehp-lPDtL4
-
+        value: "2yOyrtVwoS8OCIeuZwgHEE2MWjkUKSXmZehp-lPDtL4"
       - key: FLW_SECRET_KEY
-        value: FLWSECK_TEST-8f50c4688e2072682c40293d9907ae8a-X
-
+        value: "FLWSECK_TEST-8f50c4688e2072682c40293d9907ae8a-X"
       - key: GOOGLE_CLIENT_ID
-        value: 1046640550830-l2csbl8flobk8agq7lrjeg5eu3rdevjv.apps.googleusercontent.com
-
+        value: "1046640550830-l2csbl8flobk8agq7lrjeg5eu3rdevjv.apps.googleusercontent.com"
       - key: GOOGLE_CLIENT_SECRET
-        value: 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
-
+        value: "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"
       - key: GITHUB_CLIENT_ID
-        value: Ov23lifPCKSkM4Xx0HtQ
-
+        value: "Ov23lifPCKSkM4Xx0HtQ"
       - key: GITHUB_CLIENT_SECRET
-        value: 60681b7d5ed2b4d3a7f5eb2aafebce1763117332
-
+        value: "60681b7d5ed2b4d3a7f5eb2aafebce1763117332"
       - key: FRONTEND_URL
-        value: http://localhost:5173
-
+        value: "http://localhost:5173"
       - key: SESSION_SECRET
-        value: supersecretvalue123
-
+        value: "supersecretvalue123"
       - key: DATABASE_URL
-        value: postgresql://photopilot_user:mAbgyriaKI1Xs8S09XEIArWyPhZAd6V1@dpg-d1scaj3ipnbc73dua580-a.oregon-postgres.render.com/photopilot
-
+        value: "postgresql://photopilot_user:mAbgyriaKI1Xs8S09XEIArWyPhZAd6V1@dpg-d1scaj3ipnbc73dua580-a.oregon-postgres.render.com/photopilot"
       - key: PORT
-        value: 8000  # Optional, only if you want to override or ensure fallback
+        value: 8000
