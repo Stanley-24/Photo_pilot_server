@@ -88,5 +88,6 @@ if __name__ == "__main__":
     import os
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
+    print("Running on port:", os.environ.get("PORT"))
 
 
