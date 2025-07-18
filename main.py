@@ -1,5 +1,6 @@
 # main.py
 from fastapi import FastAPI
+import uvicorn
 from app.routes.gallery import router as gallery_router
 from app.routes.ai_background import router as ai_background_router
 
@@ -86,5 +87,5 @@ def root():
 
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
+    port = int(os.environ.get("PORT", 8000))  # Use Render's dynamic port
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
